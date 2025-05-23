@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 import google.generativeai as genai
 import os
 from routes.ask import router as ask_router
+from routes.feed import router as feed_router
+from routes.feed_generation import router as feed_generation_router
 from supabase import create_client
 from dotenv import load_dotenv
 
@@ -21,6 +23,8 @@ supabase = create_client(supabase_url, supabase_key)
 
 app = FastAPI()
 app.include_router(ask_router)
+app.include_router(feed_router)
+app.include_router(feed_generation_router)
 
 # Keep this route for user history tracking
 @app.get("/history/{user_id}")
